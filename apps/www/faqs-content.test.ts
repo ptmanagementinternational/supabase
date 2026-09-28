@@ -14,6 +14,7 @@ const DOCS_GUIDES_DIR = path.join(process.cwd(), '..', 'docs', 'content', 'guide
 // in an FAQ page, including in link URLs. Hashed so the list itself doesn't
 // publish those names. Add one with: node scripts/faqDenylistHash.mjs "<name>"
 const DENYLIST_HASHES = new Set([
+  '1a79e3c0c3b5d31b47c315f964aa2f15b5b8dc82c9114c200ea868225aae6841',
   'c6f4e8330a50b2e95b4f5be182af338f2b577f42fc886c88f77900a6d68f57e1',
   '042e9398f2cc89025595d077503121a4a5a41d153d6863caa4c7332c8f1029f6',
   '06c2c9b5450a8529d072cb3486b9745b2bca1ba2faea9d06604a4b414acc9477',
