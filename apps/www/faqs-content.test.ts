@@ -91,7 +91,7 @@ const DENYLIST_HASHES = new Set([
 
 // Lowercase words and adjacent word pairs, so multi-word names and hyphenated
 // spellings (split into two words) are both caught. Dots inside a token are
-// kept for domain-style names; leading and trailing dots are dropped.
+// kept for domain-style names, and leading and trailing dots are dropped.
 function candidateTerms(text: string): string[] {
   const words = text
     .toLowerCase()
@@ -99,7 +99,10 @@ function candidateTerms(text: string): string[] {
     .map((w) => w.replace(/^\.+|\.+$/g, ''))
     .filter(Boolean)
   const pairs = words.slice(1).map((w, i) => `${words[i]} ${w}`)
-  return [...words, ...pairs]
+  // Domain-style tokens also contribute their segments, so a vendor written as
+  // a domain in plain text or code is still caught.
+  const segments = words.filter((w) => w.includes('.')).flatMap((w) => w.split('.'))
+  return [...words, ...pairs, ...segments]
 }
 
 function deniedTerms(text: string): string[] {
