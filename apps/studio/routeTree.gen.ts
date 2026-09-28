@@ -88,6 +88,7 @@ import { Route as AppSupportLinkRouteImport } from './routes/_app/support/link'
 import { Route as AppAccountSecurityRouteImport } from './routes/_app/account/security'
 import { Route as AppAccountMeRouteImport } from './routes/_app/account/me'
 import { Route as AppAccountAuditRouteImport } from './routes/_app/account/audit'
+import { Route as AppAccountAppsRouteImport } from './routes/_app/account/apps'
 import { Route as ProjectRefSqlIndexRouteImport } from './routes/project/$ref/sql/index'
 import { Route as ProjectRefObservabilityIndexRouteImport } from './routes/project/$ref/observability/index'
 import { Route as ProjectRefLogsIndexRouteImport } from './routes/project/$ref/logs/index'
@@ -732,6 +733,11 @@ const AppAccountMeRoute = AppAccountMeRouteImport.update({
 const AppAccountAuditRoute = AppAccountAuditRouteImport.update({
   id: '/audit',
   path: '/audit',
+  getParentRoute: () => AppAccountRoute,
+} as any)
+const AppAccountAppsRoute = AppAccountAppsRouteImport.update({
+  id: '/apps',
+  path: '/apps',
   getParentRoute: () => AppAccountRoute,
 } as any)
 const ProjectRefSqlIndexRoute = ProjectRefSqlIndexRouteImport.update({
@@ -2174,6 +2180,7 @@ export interface FileRoutesByFullPath {
   '/org/_': typeof OrgChar91_Char93RouteWithChildren
   '/project/$ref': typeof ProjectRefRouteWithChildren
   '/project/_': typeof ProjectChar91_Char93RouteWithChildren
+  '/account/apps': typeof AppAccountAppsRoute
   '/account/audit': typeof AppAccountAuditRoute
   '/account/me': typeof AppAccountMeRoute
   '/account/security': typeof AppAccountSecurityRoute
@@ -2494,6 +2501,7 @@ export interface FileRoutesByTo {
   '/new/$slug': typeof NewSlugRoute
   '/org/_': typeof OrgChar91_Char93RouteWithChildren
   '/project/_': typeof ProjectChar91_Char93RouteWithChildren
+  '/account/apps': typeof AppAccountAppsRoute
   '/account/audit': typeof AppAccountAuditRoute
   '/account/me': typeof AppAccountMeRoute
   '/account/security': typeof AppAccountSecurityRoute
@@ -2806,6 +2814,7 @@ export interface FileRoutesById {
   '/org/_': typeof OrgChar91_Char93RouteWithChildren
   '/project/$ref': typeof ProjectRefRouteWithChildren
   '/project/_': typeof ProjectChar91_Char93RouteWithChildren
+  '/_app/account/apps': typeof AppAccountAppsRoute
   '/_app/account/audit': typeof AppAccountAuditRoute
   '/_app/account/me': typeof AppAccountMeRoute
   '/_app/account/security': typeof AppAccountSecurityRoute
@@ -3130,6 +3139,7 @@ export interface FileRouteTypes {
     | '/org/_'
     | '/project/$ref'
     | '/project/_'
+    | '/account/apps'
     | '/account/audit'
     | '/account/me'
     | '/account/security'
@@ -3450,6 +3460,7 @@ export interface FileRouteTypes {
     | '/new/$slug'
     | '/org/_'
     | '/project/_'
+    | '/account/apps'
     | '/account/audit'
     | '/account/me'
     | '/account/security'
@@ -3761,6 +3772,7 @@ export interface FileRouteTypes {
     | '/org/_'
     | '/project/$ref'
     | '/project/_'
+    | '/_app/account/apps'
     | '/_app/account/audit'
     | '/_app/account/me'
     | '/_app/account/security'
@@ -4720,6 +4732,13 @@ declare module '@tanstack/react-router' {
       path: '/audit'
       fullPath: '/account/audit'
       preLoaderRoute: typeof AppAccountAuditRouteImport
+      parentRoute: typeof AppAccountRoute
+    }
+    '/_app/account/apps': {
+      id: '/_app/account/apps'
+      path: '/apps'
+      fullPath: '/account/apps'
+      preLoaderRoute: typeof AppAccountAppsRouteImport
       parentRoute: typeof AppAccountRoute
     }
     '/project/$ref/sql/': {
@@ -6427,6 +6446,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppAccountRouteChildren {
+  AppAccountAppsRoute: typeof AppAccountAppsRoute
   AppAccountAuditRoute: typeof AppAccountAuditRoute
   AppAccountMeRoute: typeof AppAccountMeRoute
   AppAccountSecurityRoute: typeof AppAccountSecurityRoute
@@ -6435,6 +6455,7 @@ interface AppAccountRouteChildren {
 }
 
 const AppAccountRouteChildren: AppAccountRouteChildren = {
+  AppAccountAppsRoute: AppAccountAppsRoute,
   AppAccountAuditRoute: AppAccountAuditRoute,
   AppAccountMeRoute: AppAccountMeRoute,
   AppAccountSecurityRoute: AppAccountSecurityRoute,
